@@ -83,5 +83,3 @@ test:
 production:
   <<: *default
   database: pennapps_backend_production
-  username: pennapps_backend
-  password: <%= ENV['PENNAPPS_BACKEND_DATABASE_PASSWORD'] %>
