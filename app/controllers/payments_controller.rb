@@ -15,9 +15,11 @@ class PaymentsController < ApplicationController
       :card  => params[:stripeToken]
     )
 
+    amount = (@item.price_cents * 1.017).ceil + 20
+
     charge = Stripe::Charge.create(
       :customer    => customer.id,
-      :amount      => @item.price_cents,
+      :amount      => amount,
       :description => "#{@item.name}, from society #{@item.society.name}",
       :currency    => 'gbp'
     )
