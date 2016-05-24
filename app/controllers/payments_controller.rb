@@ -6,7 +6,7 @@ class PaymentsController < ApplicationController
   def purchase
     @item = Item.find(params[:id])
 
-    if @item.payments_count > @item.capacity
+    if @item.capacity != 0 and (@item.payments_count > @item.capacity)
       render json: { errors: { "item": "is sold out" } }, status: 400 and return
     end
 
