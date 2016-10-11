@@ -12,9 +12,9 @@ require 'mina/rvm'    # for rvm support. (http://rvm.io)
 
 set :rails_env, 'production'
 
-set :domain, 'oatpay.com'
-set :deploy_to, '/srv/oatpay'
-set :repository, 'https://github.com/lukas1994/pennapps.git'
+set :domain, 'getcashew.com'
+set :deploy_to, '/srv/oatpay/api/'
+set :repository, 'https://github.com/dvdhsu/oatpay_api.git'
 set :branch, 'master'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
