@@ -10,29 +10,46 @@ class PaymentsController < ApplicationController
       render json: { errors: { "item": "is sold out" } }, status: 400 and return
     end
 
-    customer = Stripe::Customer.create(
-      :email => payment_params[:email],
-      :card  => params[:stripeToken]
+    result = Braintree::Customer.create(
+      :first_name => user.first_name,
+      :credit_card => {
+        :payment_method_nonce => nonce,
+        :options => {
+          :verify_card => true
+        }
+      },
     )
 
-    amount = (@item.price_cents * 1.017).ceil + 20
+    if not result.success?
+      render json: { error: result.message }, status: 400 and return false
+    else
+      customer = result.customer
+    end
 
-    charge = Stripe::Charge.create(
-      :customer    => customer.id,
-      :amount      => amount,
-      :description => "#{@item.name}, from society #{@item.society.name}",
-      :currency    => 'gbp'
+    amount = sprintf('%.2f', (@item.price_cents * 1.017).ceil + 20)
+
+    result = Braintree::Transaction.sale(
+      :amount => amount,
+      :customer_id => customer.id,
+      :options => {
+        :submit_for_settlement => true
+      },
     )
 
-    @payment = @item.payments.build(payment_params)
+    if result.success?
+      @payment = @item.payments.build(payment_params)
 
-    @payment.save!
-    @item.society.balance += @item.price
-    @item.society.save!
-    render json: { data: { payment: @payment } }
+      @payment.save!
+      @item.society.balance += @item.price
+      @item.society.save!
+      render json: { data: { payment: @payment } }
+    else
+      render json: { error: result.message }, status: 400 and return false
+    end
+  end
 
-    rescue Stripe::CardError => e
-      render json: { errors: e.message }, status: 400
+  def client_token
+    render json: { client_token: Braintree::ClientToken.generate }
   end
 
   private
