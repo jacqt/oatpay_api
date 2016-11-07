@@ -49,6 +49,8 @@ GEM
       tzinfo (~> 1.1)
     arel (7.0.0)
     bcrypt (3.1.10)
+    braintree (2.66.0)
+      builder (>= 2.0.0)
     builder (3.2.2)
     byebug (8.2.1)
     celluloid (0.17.3)
@@ -203,6 +205,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   bcrypt
+  braintree
   byebug
   figaro
   money-rails
@@ -217,5 +220,8 @@ DEPENDENCIES
   stripe
   tzinfo-data
 
+RUBY VERSION
+   ruby 2.3.0p0
+
 BUNDLED WITH
-   1.11.2
+   1.12.5

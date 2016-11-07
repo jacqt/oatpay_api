@@ -11,6 +11,7 @@ gem 'slack-notifier'
 gem 'sendgrid-ruby'
 gem 'sidekiq'
 gem 'stripe'
+gem 'braintree'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '>= 5.0.0.beta1', '< 5.1'

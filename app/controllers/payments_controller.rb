@@ -10,8 +10,10 @@ class PaymentsController < ApplicationController
       render json: { errors: { "item": "is sold out" } }, status: 400 and return
     end
 
+    nonce = params[:nonce]
+
     result = Braintree::Customer.create(
-      :first_name => user.first_name,
+      :email => params[:email],
       :credit_card => {
         :payment_method_nonce => nonce,
         :options => {
@@ -46,10 +48,6 @@ class PaymentsController < ApplicationController
     else
       render json: { error: result.message }, status: 400 and return false
     end
-  end
-
-  def client_token
-    render json: { client_token: Braintree::ClientToken.generate }
   end
 
   private
