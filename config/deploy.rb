@@ -12,7 +12,7 @@ require 'mina/rvm'    # for rvm support. (http://rvm.io)
 
 set :rails_env, 'production'
 
-set :domain, 'getcashew.com'
+set :domain, 'api_test.getcashew.com'
 set :deploy_to, '/srv/braintree_oatpay_api'
 set :repository, 'https://github.com/jacqt/oatpay_api.git'
 set :branch, 'master'
