@@ -28,7 +28,7 @@ class PaymentsController < ApplicationController
       customer = result.customer
     end
 
-    amount = sprintf('%.2f', (((@item.price_cents * 1.0365).ceil + 20) / 100))
+    amount = sprintf('%.2f', (((@item.price_cents * 1.0365) + 20) / 100))
 
     result = Braintree::Transaction.sale(
       :amount => amount,
@@ -44,7 +44,7 @@ class PaymentsController < ApplicationController
       @payment.save!
       @item.society.balance += @item.price
       @item.society.save!
-      render json: { data: { payment: @payment } }
+      render json: { data: { payment: @payment }, amount: amount }
     else
       render json: { error: result.message }, status: 400 and return false
     end
