@@ -28,7 +28,7 @@ class PaymentsController < ApplicationController
       customer = result.customer
     end
 
-    amount = sprintf('%.2f', (((@item.price_cents * 1.0365) + 20) / 100))
+    amount = sprintf('%.2f', (((@item.price_cents * 1.0365) + 15) / 100))
 
     result = Braintree::Transaction.sale(
       :amount => amount,
