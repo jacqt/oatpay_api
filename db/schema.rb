@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160124021715) do
+ActiveRecord::Schema.define(version: 20161202040110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,8 +48,9 @@ ActiveRecord::Schema.define(version: 20160124021715) do
     t.string   "sort_code"
     t.string   "account_number"
     t.integer  "balance_cents",   default: 0
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "verified",        default: false
     t.index ["account_number"], name: "index_societies_on_account_number", using: :btree
     t.index ["balance_cents"], name: "index_societies_on_balance_cents", using: :btree
     t.index ["email"], name: "index_societies_on_email", unique: true, using: :btree
